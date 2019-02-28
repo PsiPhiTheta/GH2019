@@ -1,4 +1,5 @@
 from Slide import Slide
+from random import shuffle
 
 def get_sorted_photos(photos):
     photos.sort(key=lambda x: len(x.tags), reverse=True)
@@ -6,7 +7,7 @@ def get_sorted_photos(photos):
 
 
 def get_sorted_slides(slides):
-    slides.sort(key=lambda x: len(x.tags), reverse=True)
+    slides.sort(key=lambda x: x.score, reverse=True)
     return slides
 
 
@@ -57,7 +58,13 @@ if __name__ == "__main__":
         if photo.horizontal:
             slides.append(Slide([photo]))
 
+    for slide in slides:
+        slide.set_score(input["freq"])
+
     sorted_slides = get_sorted_slides(slides)
+
+    shuffle(sorted_slides)
+    print(sorted_slides[0].photos[0].index)
     print(score(len(sorted_slides), sorted_slides))
 
     file = open("out.txt", "w")
