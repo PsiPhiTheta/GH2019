@@ -68,11 +68,29 @@ if __name__ == "__main__":
             slides.append(Slide([photo]))
 
     for slide in slides:
-        slide.set_score(input["freq"])
-
-    sorted_slides = get_sorted_slides(slides)
-
-    latest_score = score(len(sorted_slides), sorted_slides)
+        slide.new_score_calc(input["freq"], 4, 10)
+        
+    sorted_slides = []
+    sorted_slides.append(slides[0])
+    k = 0
+    while len(slides) > 0:
+        i = 1
+        while i < len(slides):
+            if(len(slides) < 2):
+                sorted_slides.append(slides[0])
+            elif (abs(slides[i-1].new_score[0] - slides[i].new_score[0]) <= k and  abs(slides[i-1].new_score[1] - slides[i].new_score[1]) <= k):
+                sorted_slides.append(slides[i-1])
+                sorted_slides.append(slides[i])
+                del slides[i-1]
+                del slides[i-1]
+                
+                if(i > 3):
+                    i -= 3
+            i += 1
+        k += 1
+    
+    print(len(sorted_slides))
+    latest_score = score(len(sorted_slides)-1, sorted_slides)
     print_output(sorted_slides)
     print("Best score so far: " + str(latest_score))
     iterations = 1000
