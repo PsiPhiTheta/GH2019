@@ -63,5 +63,6 @@ if __name__ == "__main__":
             slides.append(Slide(photo))
 
     sorted_slides = get_sorted_slides(slides)
-
+    
+    print(score(len(sorted_slides), sorted_slides))
     print(sorted_photos[0].tags[0])
