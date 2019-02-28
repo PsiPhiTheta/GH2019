@@ -29,6 +29,26 @@ def longass_tags(vertical_photos):
     return vertical_slides
 
 
+def score(N, sildes):
+    sc = 0
+    for i in range(1, N):
+        old_tags = sildes[i-1][0].tags
+        new_tags = slides[i][0].tags
+        if(len(slides[i-1]) > 1):
+            old_tags += sildes[i-1][1].tags
+            old_tags -= set(sildes[i-1][0].tags).intersection(set(sildes[i-1][1].tags))
+        if(len(slides[i]) > 1):
+            old_tags += sildes[i][1].tags
+            old_tags -= set(sildes[i][0].tags).intersection(set(sildes[i][1].tags))
+            
+        common = len(set(old_tags) & set(new_tags))
+        new = len(old_tags) - common
+        old = len(new_tags) - common
+        sc += min(common, new, old)
+    
+    return sc
+
+
 if __name__ == "__main__":
     import sys
     import process_input as ps
