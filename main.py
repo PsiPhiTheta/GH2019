@@ -16,13 +16,13 @@ def longass_tags(vertical_photos):
     common_tags = 0
 
     while len(vertical_slides) < int(total_photos - 1) / 2:
-        i = 0
+        i = 1
         while i < len(vertical_photos):
             if len(set(vertical_photos[i - 1].tags) & set(vertical_photos[i].tags)) <= common_tags:
                 photos = [vertical_photos[i - 1], vertical_photos[i]]
                 vertical_slides.append(Slide(photos))
-                vertical_photos.pop(i - 1)
-                vertical_photos.pop(i - 1) ##i is now i-1
+                del vertical_photos[i - 1]
+                del vertical_photos[i - 1] ##i is now i-1
                 if(i > 3):
                     i -= 3
             i += 1
