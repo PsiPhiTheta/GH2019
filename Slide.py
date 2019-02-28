@@ -14,3 +14,5 @@ class Slide:
         for tag in self.tags:
             self.score += freq[tag]
 
+        self.score /= len(self.tags)
+

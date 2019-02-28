@@ -1,5 +1,6 @@
 from Slide import Slide
-from random import shuffle
+from random import randint
+
 
 def get_sorted_photos(photos):
     photos.sort(key=lambda x: len(x.tags), reverse=True)
@@ -45,6 +46,14 @@ def score(N, sildes):
     return sc
 
 
+def print_output(sorted_slides):
+    file = open("out.txt", "w")
+    n = len(sorted_slides)
+    file.write(str(n) + "\n")
+    for slide in sorted_slides:
+        file.write(str(slide) + "\n")
+
+
 if __name__ == "__main__":
     import sys
     import process_input as ps
@@ -63,12 +72,29 @@ if __name__ == "__main__":
 
     sorted_slides = get_sorted_slides(slides)
 
-    shuffle(sorted_slides)
-    print(sorted_slides[0].photos[0].index)
-    print(score(len(sorted_slides), sorted_slides))
+    latest_score = score(len(sorted_slides), sorted_slides)
+    print_output(sorted_slides)
+    print("Best score so far: " + str(latest_score))
+    iterations = 1000
 
-    file = open("out.txt", "w")
-    n = len(sorted_slides)
-    file.write(str(n) + "\n")
-    for slide in sorted_slides:
-        file.write(str(slide) + "\n")
+    while iterations > 0:
+        while True:
+            random_index = randint(0, len(sorted_slides))
+            temp_index = randint(0, len(sorted_slides))
+
+            temp_slide = sorted_slides[random_index]
+            sorted_slides[random_index] = sorted_slides[temp_index]
+            sorted_slides[temp_index] = temp_slide
+
+            new_score = score(len(sorted_slides), sorted_slides)
+
+            iterations -= 1
+
+            if new_score > latest_score:
+                print_output(sorted_slides)
+                print("Best score so far: " + str(new_score))
+                break
+
+            if iterations <= 0:
+                break
+
