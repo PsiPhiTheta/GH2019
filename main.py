@@ -60,9 +60,13 @@ if __name__ == "__main__":
 
     for photo in sorted_photos:
         if photo.horizontal:
-            slides.append(Slide(photo))
+            slides.append(Slide([photo]))
 
     sorted_slides = get_sorted_slides(slides)
-    
     print(score(len(sorted_slides), sorted_slides))
-    print(sorted_photos[0].tags[0])
+
+    file = open("out.txt", "w")
+    n = len(sorted_slides)
+    file.write(str(n) + "\n")
+    for slide in sorted_slides:
+        file.write(str(slide) + "\n")
