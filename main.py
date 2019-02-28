@@ -21,7 +21,9 @@ def longass_tags(vertical_photos):
                 photos = [vertical_photos[i - 1], vertical_photos[i]]
                 vertical_slides.append(Slide(photos))
                 vertical_photos.pop(i - 1)
-                vertical_photos.pop(i)
+                vertical_photos.pop(i - 1) ##i is now i-1
+                if(i > 1):
+                    i-=2
         common_tags += 1
 
     return vertical_slides
@@ -38,7 +40,7 @@ if __name__ == "__main__":
 
     for photo in sorted_photos:
         if photo.horizontal:
-            slides.add(Slide(photo))
+            slides.append(Slide(photo))
 
     sorted_slides = get_sorted_slides(slides)
 
