@@ -1,9 +1,8 @@
 class Slide:
-    def __init__(self, num_photos, photos):
-        self.num_photos = num_photos
+    def __init__(self, photos):
         self.photos = photos
 
-        self.tags = dict()
+        self.tags = set()
         for photo in photos:
             for tag in photo.tags:
                 self.tags.add(tag)
