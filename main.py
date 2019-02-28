@@ -36,6 +36,7 @@ def longass_tags(vertical_photos):
 def score(N, sildes):
     sc = 0
     for i in range(1, N):
+        print(i)
         old_tags = sildes[i-1].tags
         new_tags = slides[i].tags
         common = len(set(old_tags) & set(new_tags))
@@ -79,6 +80,7 @@ if __name__ == "__main__":
             if(len(slides) < 2):
                 sorted_slides.append(slides[0])
             elif (abs(slides[i-1].new_score[0] - slides[i].new_score[0]) <= k and  abs(slides[i-1].new_score[1] - slides[i].new_score[1]) <= k):
+                print("hello")
                 sorted_slides.append(slides[i-1])
                 sorted_slides.append(slides[i])
                 del slides[i-1]
@@ -89,7 +91,7 @@ if __name__ == "__main__":
             i += 1
         k += 1
     
-    print(len(sorted_slides))
+    print(sorted_slides[2].tags)
     latest_score = score(len(sorted_slides)-1, sorted_slides)
     print_output(sorted_slides)
     print("Best score so far: " + str(latest_score))
